@@ -1,0 +1,11 @@
+server:
+  port: 8888
+spring:
+  main:
+    banner-mode: off
+
+app:
+  merchantId: #商户id(商户中心查看)
+  key: #密钥(商户中心查看)
+  api: #测试环境 http://test.api.zhluyouqi.com/
+  callback: #回调地址（公网可访问）

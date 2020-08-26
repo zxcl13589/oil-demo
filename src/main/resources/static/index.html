@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+
+    <style type="text/css">
+        label{display: block;}
+    </style>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<form action="/buy/card" method="post" id="cardForm">
+    <label for="city"> 发件人所在城市：
+        <input type="text" name="city" id="city"></label>
+    <label for="address"> 地址：
+        <input type="text" name="address" id="address"></label>
+    <label for="amount"> 数量:
+        <input type="text" name="amount" id="amount"></label>
+    <label>卡类型：
+        <label for="cy">柴油
+            <input type="radio" name="cardType" value="cy" id="cy">
+        </label>
+        <label for="qy">汽油
+            <input type="radio" name="cardType" value="qy" id="qy">
+        </label>
+    </label>
+    <label for="mobile">电话：
+        <input type="text" name="mobile" id="mobile"></label>
+    <label for="userName">姓名：
+        <input type="text" name="userName" id="userName"></label>
+    <input type="button" value="购买" id="buyBtn">
+</form>
+
+
+<hr>
+
+<form action="/buy/oil" method="post" id="oilForm">
+    <label for="cardNo"> 卡号：
+        <input type="text" name="cardNo" id="cardNo"></label>
+    <label for="cardMoney"> 充值金额:
+        <input type="text" name="cardMoney" id="cardMoney"></label>
+    <input type="button" value="充值" id="rechargeBtn">
+</form>
+
+
+<script>
+    function getFormData($form){
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function(n, i){
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return indexed_array;
+    }
+
+    $(function(){
+        $("#buyBtn").click(function () {
+            var data = getFormData($("#cardForm"));
+            $.post("/buy/card", data, function(d){
+                alert(d);
+            });
+        });
+
+        $("#rechargeBtn").click(function () {
+            var data = getFormData($("#oilForm"));
+            $.post("/buy/oil", data, function(d){
+                alert(d);
+            });
+        });
+    });
+</script>
+</body>
+</html>
